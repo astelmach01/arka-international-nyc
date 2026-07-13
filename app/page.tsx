@@ -11,11 +11,8 @@ export type Product = {
   imageUrl: string;
   imageAlt: string;
   localImage?: string;
+  category: string;
 };
-
-const products = productsData as Product[];
-const heroProducts = products.filter((product) => product.localImage).slice(0, 3);
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 type ArchivePost = {
   id: number;
@@ -27,165 +24,176 @@ type ArchivePost = {
   provenance: string;
 };
 
+const products = productsData as Product[];
 const archivePosts = archiveData as ArchivePost[];
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const heroProducts = [
+  products.find((product) => product.category === "Textiles & clothing" && product.localImage),
+  products.find((product) => product.category === "Icons & faith" && product.localImage),
+  products.find((product) => product.category === "Pysanky & folk art" && product.localImage),
+].filter(Boolean) as Product[];
+
+function Brand() {
+  return (
+    <span className="brand">
+      <span className="brand-mark" aria-hidden="true">А</span>
+      <span className="brand-words">
+        <strong>Arka International</strong>
+        <small>Ukrainian art &amp; heritage · New York</small>
+      </span>
+    </span>
+  );
+}
 
 export default function Home() {
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to main content</a>
+
+      <div className="utility-bar">
+        <p>89 East 2nd Street, New York</p>
+        <a href="tel:+12124733550">Questions? Call 212-473-3550</a>
+      </div>
+
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Arka International home">
-          <span className="brand-mark" aria-hidden="true">А</span>
-          <span>
-            <strong>Arka International</strong>
-            <small>New York · Since 1951</small>
-          </span>
-        </a>
+        <a href="#top" aria-label="Arka International home"><Brand /></a>
         <nav aria-label="Main navigation">
-          <a href="#collection">Collection</a>
-          <a className="nav-secondary" href="#story">Our story</a>
-          <a className="nav-secondary" href="#archive">Archive</a>
-          <a className="nav-visit" href="#visit">Visit the store</a>
+          <a href="#collection">Browse objects</a>
+          <a href="#about">About Arka</a>
+          <a href="#visit">Plan a visit</a>
         </nav>
+        <a className="header-call" href="tel:+12124733550">Call the store</a>
       </header>
 
       <main id="main-content">
-
-      <section className="hero" id="top">
-        <div className="hero-copy">
-          <p className="eyebrow">Ukrainian heritage in the East Village</p>
-          <h1>Objects with a story.<br />Traditions with a home.</h1>
-          <p className="hero-intro">
-            Discover folk art, handcrafts, textiles, icons, books, and keepsakes
-            gathered across generations.
-          </p>
-          <div className="hero-actions">
-            <a className="button-primary" href="#collection">Explore the collection</a>
-            <a className="button-secondary" href="tel:+12124733550">Call 212-473-3550</a>
+        <section className="hero" id="top">
+          <div className="hero-copy">
+            <p className="kicker">Serving New York’s Ukrainian community since 1951</p>
+            <h1>A Ukrainian treasure in New York.</h1>
+            <p className="hero-intro">
+              Folk art, embroidery, icons, books, ceramics, and keepsakes from
+              Arka’s collection—now easier to explore online.
+            </p>
+            <div className="hero-actions">
+              <a className="button button-primary" href="#collection">Browse the collection</a>
+              <a className="button button-secondary" href="tel:+12124733550">Call 212-473-3550</a>
+            </div>
+            <div className="availability-note">
+              <span aria-hidden="true">i</span>
+              <p><strong>Looking for something specific?</strong> Call us for current availability, pricing, and store hours.</p>
+            </div>
           </div>
-          <p className="archive-note">
-            This online collection was recovered from Arka’s original catalog.
-            Please call to confirm current availability.
-          </p>
-        </div>
-        <div className="hero-gallery" aria-label="Highlights from the Arka collection">
-          {heroProducts.map((product, index) => (
-            <figure className={`hero-image hero-image-${index + 1}`} key={product.id}>
-              <img src={`${basePath}${product.localImage}`} alt={product.imageAlt} />
-            </figure>
-          ))}
-          <div className="hero-seal" aria-hidden="true">From Ukraine<br />to New York</div>
-        </div>
-      </section>
 
-      <section className="collection-section" id="collection">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">The recovered archive</p>
-            <h2>Explore the collection</h2>
+          <div className="hero-images" aria-label="Objects from the recovered Arka collection">
+            {heroProducts.map((product, index) => (
+              <figure className={`hero-object hero-object-${index + 1}`} key={product.id}>
+                <img src={`${basePath}${product.localImage}`} alt={product.imageAlt} />
+                <figcaption>{product.title}</figcaption>
+              </figure>
+            ))}
+            <div className="hero-pattern" aria-hidden="true" />
           </div>
-          <p>
-            Browse {products.length} objects preserved from the original Arka catalog.
-            Search by name, material, artist, or description.
-          </p>
-        </div>
+        </section>
+
+        <section className="how-it-works" aria-labelledby="how-title">
+          <div className="how-heading">
+            <p className="kicker">Simple ways to explore</p>
+            <h2 id="how-title">Find what you love in three steps.</h2>
+          </div>
+          <ol>
+            <li><span>1</span><div><strong>Browse or search</strong><p>Choose a category, or type a simple word.</p></div></li>
+            <li><span>2</span><div><strong>Open an object</strong><p>See the recovered photograph and description.</p></div></li>
+            <li><span>3</span><div><strong>Call the store</strong><p>Ask whether it is available before visiting.</p></div></li>
+          </ol>
+        </section>
+
         <Catalog products={products} basePath={basePath} />
-      </section>
 
-      <section className="story" id="story">
-        <div className="story-pattern" aria-hidden="true">
-          <span>АРКА</span>
-        </div>
-        <div className="story-copy">
-          <p className="eyebrow">A New York institution</p>
-          <h2>A bridge between cultures, built object by object.</h2>
-          <p>
-            Arka International has long been a neighborhood home for Ukrainian
-            art, culture, and memory. The shop’s collection brings together
-            traditional craftsmanship and the stories carried by every piece.
-          </p>
-          <p>
-            This rebuilt catalog preserves the photographs and descriptions from
-            Arka’s earlier website while making them easier to discover and share.
-          </p>
-        </div>
-      </section>
-
-      <section className="archive" id="archive">
-        <div className="archive-intro">
-          <div>
-            <p className="eyebrow">Legacy archive</p>
-            <h2>What survived the old website.</h2>
+        <section className="about" id="about">
+          <div className="about-art">
+            <img src={`${basePath}/story-textile.webp`} alt="Original Ukrainian folk-art inspired botanical textile illustration" loading="lazy" />
           </div>
-          <div className="archive-context">
+          <div className="about-copy">
+            <p className="kicker">About Arka</p>
+            <h2>A bridge between generations.</h2>
+            <p className="about-lead">
+              Arka International has been a home for Ukrainian art, craft, language,
+              and memory in New York’s East Village since 1951.
+            </p>
             <p>
-              These nine safe posts were recovered exactly enough to identify them,
-              but they appear to be sample entries installed with the old WordPress
-              theme—not Arka news or store history.
+              This site brings together Arka’s photographs and descriptions in a
+              clearer collection that is easier for everyone to navigate.
             </p>
-            <p className="archive-safety">
-              Compromised posts and hidden links remain quarantined and are not
-              included anywhere on this site.
-            </p>
+            <a className="text-link" href="#visit">See the store address and hours <span aria-hidden="true">→</span></a>
           </div>
-        </div>
-        <div className="archive-grid">
-          {archivePosts.map((post, index) => (
-            <article className="archive-card" key={post.id}>
-              <div className="archive-number" aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </div>
-              <div>
-                <p className="archive-meta">
-                  <time dateTime={post.isoDate}>{post.date}</time>
-                  <span>{post.provenance}</span>
-                </p>
-                <h3>{post.title}</h3>
-                <p>{post.excerpt}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+        </section>
 
-      <section className="visit" id="visit">
-        <div>
-          <p className="eyebrow">Come say hello</p>
-          <h2>Visit Arka in the East Village.</h2>
-          <address>
-            89 East 2nd Street<br />
-            Corner of 1st Avenue<br />
-            New York, NY 10009
-          </address>
-        </div>
-        <div className="visit-details">
-          <div>
-            <span>Recovered store hours</span>
-            <p>Tuesday–Friday, 12–6 pm · Saturday by appointment</p>
+        <section className="visit" id="visit">
+          <div className="visit-intro">
+            <p className="kicker">Plan a visit</p>
+            <h2>Come see Arka in the East Village.</h2>
+            <p>Call before visiting so the store can confirm today’s hours and whether a particular object is available.</p>
           </div>
-          <div>
-            <span>Phone</span>
-            <a href="tel:+12124733550">212-473-3550</a>
+
+          <div className="visit-card">
+            <div className="visit-row">
+              <span>Address</span>
+              <address>89 East 2nd Street<br />Corner of 1st Avenue<br />New York, NY 10009</address>
+            </div>
+            <div className="visit-row">
+              <span>Phone</span>
+              <a href="tel:+12124733550">212-473-3550</a>
+            </div>
+            <div className="visit-row">
+              <span>Recovered hours</span>
+              <p>Tuesday–Friday, 12–6 pm<br />Saturday by appointment</p>
+            </div>
+            <p className="hours-warning">These hours came from the former website and may be out of date. Please call first.</p>
+            <div className="visit-actions">
+              <a className="button button-light" href="tel:+12124733550">Call the store</a>
+              <a className="button button-outline-light" href="https://maps.google.com/?q=89+East+2nd+Street+New+York+NY+10009">Open in maps</a>
+            </div>
           </div>
-          <div>
-            <span>Before visiting</span>
-            <p>Call to confirm today’s hours and item availability.</p>
+        </section>
+
+        <section className="recovery" aria-labelledby="recovery-title">
+          <div className="recovery-copy">
+            <p className="kicker">Website recovery</p>
+            <h2 id="recovery-title">What happened to the old posts?</h2>
+            <p>
+              The former WordPress site contained thousands of injected gambling and
+              spam posts. Those records were preserved privately for forensic purposes
+              but were never published here.
+            </p>
           </div>
-          <a className="button-light" href="https://maps.google.com/?q=89+East+2nd+Street+New+York+NY+10009">
-            Get directions
-          </a>
-        </div>
-      </section>
+          <details className="recovery-details">
+            <summary>
+              <span><strong>View 9 safe legacy records</strong><small>These appear to be WordPress theme samples, not Arka articles.</small></span>
+              <b aria-hidden="true">+</b>
+            </summary>
+            <div className="archive-list">
+              {archivePosts.map((post) => (
+                <article key={post.id}>
+                  <p><time dateTime={post.isoDate}>{post.date}</time><span>{post.provenance}</span></p>
+                  <h3>{post.title}</h3>
+                  <p>{post.excerpt}</p>
+                </article>
+              ))}
+            </div>
+          </details>
+        </section>
+      </main>
 
       <footer>
-        <div className="brand footer-brand">
-          <span className="brand-mark" aria-hidden="true">А</span>
-          <span><strong>Arka International</strong><small>New York, NY</small></span>
+        <Brand />
+        <div className="footer-contact">
+          <a href="tel:+12124733550">212-473-3550</a>
+          <span>89 East 2nd Street, New York, NY 10009</span>
         </div>
-        <p>Preserving Ukrainian craft, culture, and memory.</p>
-        <a href="tel:+12124733550">212-473-3550</a>
+        <p>Recovered with care. Call to confirm all current details.</p>
       </footer>
-      </main>
+
+      <a className="mobile-call-bar" href="tel:+12124733550">Call Arka · 212-473-3550</a>
     </>
   );
 }

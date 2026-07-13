@@ -20,12 +20,17 @@ test("server-renders the recovered Arka catalog", async () => {
 
   const html = await response.text();
   assert.match(html, /Arka International \| Ukrainian Art/);
-  assert.match(html, /Explore the collection/);
+  assert.match(html, /A Ukrainian treasure in New York/);
+  assert.match(html, /Browse by category/);
+  assert.match(html, /Icons &amp; faith/);
+  assert.match(html, /Textiles &amp; clothing/);
+  assert.match(html, /Call the store/);
   assert.match(html, /Browse\s*(?:<!-- -->)?703(?:<!-- -->)?\s*objects/);
   assert.match(html, /89 East 2nd Street/);
   assert.match(html, /212-473-3550/);
-  assert.match(html, /Legacy archive/);
-  assert.match(html, /Recovered store hours/);
+  assert.match(html, /View 9 safe legacy records/);
+  assert.match(html, /Recovered hours/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
+  assert.doesNotMatch(html, /historical catalog/i);
   assert.doesNotMatch(html, /casino|sportsbook|บาคาร่า|mostbet|kraken onion|betandreas/i);
 });

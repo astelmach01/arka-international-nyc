@@ -15,7 +15,7 @@ const sans = Manrope({
 
 const title = "Arka International | Ukrainian Art & Heritage in New York";
 const description =
-  "Explore Arka International’s recovered collection of Ukrainian art, handcrafts, textiles, icons, books, and keepsakes in New York City.";
+  "Explore Arka International’s collection of Ukrainian art, handcrafts, textiles, icons, books, and keepsakes in New York City.";
 const siteUrl = "https://astelmach01.github.io/arka-international-nyc/";
 
 export const metadata: Metadata = {

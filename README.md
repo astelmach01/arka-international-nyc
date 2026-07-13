@@ -4,6 +4,12 @@ A recovered, searchable catalog for Arka International, a Ukrainian art and heri
 
 The public site contains 703 historical product records and 700 web-ready catalog images recovered from the store's original WordPress site. Suspected compromised posts and injected page content are excluded.
 
+The interface is designed for straightforward, accessible browsing: large type,
+high-contrast controls, category filters, plain-language search, clear historical
+catalog warnings, and persistent phone access on mobile. The decorative story
+illustration is newly generated editorial artwork; merchandise photography comes
+only from the recovered catalog.
+
 ## Local development
 
 ```bash
@@ -16,6 +22,7 @@ npm run dev
 ```bash
 npm test
 npm run build:pages
+node scripts/audit-recovery.mjs
 ```
 
 The generated static export in `docs/` is served by GitHub Pages from `main`.
