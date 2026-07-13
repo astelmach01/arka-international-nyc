@@ -16,7 +16,7 @@ function findDuplicates(values) {
 }
 
 const suspectPattern =
-  /casino|betting|sportsbook|บาคาร่า|แทงบอลออนไลน์|mostbet|golisimo|kraken\s+(?:onion|market)|dexscreener/i;
+  /casino|betting|sportsbook|betandreas|บาคาร่า|แทงบอลออนไลน์|พอตใช้แล้วทิ้ง|mostbet|golisimo|kraken\s+(?:onion|market)|dexscreener/i;
 
 function renderedText(record) {
   return [record?.title?.rendered, record?.excerpt?.rendered, record?.content?.rendered]

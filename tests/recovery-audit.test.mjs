@@ -56,10 +56,11 @@ test("identifySuspectContent separates late spam from the historical catalog", (
     pages: [
       { id: 4, content: { rendered: "<p>Store Hours</p>" } },
       { id: 5, content: { rendered: "<p>Store Hours</p> บาคาร่าออนไลน์" } },
+      { id: 6, content: { rendered: "<div style=\"left:-7566px\">betandreas</div>" } },
     ],
   });
 
   assert.deepEqual(result.suspectPostIds, [3]);
-  assert.deepEqual(result.suspectPageIds, [5]);
+  assert.deepEqual(result.suspectPageIds, [5, 6]);
   assert.deepEqual(result.suspectProductIds, []);
 });

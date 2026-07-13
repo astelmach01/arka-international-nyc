@@ -1,4 +1,5 @@
 import productsData from "../data/products.json";
+import archiveData from "../data/archive.json";
 import { Catalog } from "./catalog";
 
 export type Product = {
@@ -16,9 +17,22 @@ const products = productsData as Product[];
 const heroProducts = products.filter((product) => product.localImage).slice(0, 3);
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
+type ArchivePost = {
+  id: number;
+  date: string;
+  isoDate: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  provenance: string;
+};
+
+const archivePosts = archiveData as ArchivePost[];
+
 export default function Home() {
   return (
-    <main>
+    <>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Arka International home">
           <span className="brand-mark" aria-hidden="true">А</span>
@@ -29,10 +43,13 @@ export default function Home() {
         </a>
         <nav aria-label="Main navigation">
           <a href="#collection">Collection</a>
-          <a href="#story">Our story</a>
+          <a className="nav-secondary" href="#story">Our story</a>
+          <a className="nav-secondary" href="#archive">Archive</a>
           <a className="nav-visit" href="#visit">Visit the store</a>
         </nav>
       </header>
+
+      <main id="main-content">
 
       <section className="hero" id="top">
         <div className="hero-copy">
@@ -94,6 +111,43 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="archive" id="archive">
+        <div className="archive-intro">
+          <div>
+            <p className="eyebrow">Legacy archive</p>
+            <h2>What survived the old website.</h2>
+          </div>
+          <div className="archive-context">
+            <p>
+              These nine safe posts were recovered exactly enough to identify them,
+              but they appear to be sample entries installed with the old WordPress
+              theme—not Arka news or store history.
+            </p>
+            <p className="archive-safety">
+              Compromised posts and hidden links remain quarantined and are not
+              included anywhere on this site.
+            </p>
+          </div>
+        </div>
+        <div className="archive-grid">
+          {archivePosts.map((post, index) => (
+            <article className="archive-card" key={post.id}>
+              <div className="archive-number" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+              <div>
+                <p className="archive-meta">
+                  <time dateTime={post.isoDate}>{post.date}</time>
+                  <span>{post.provenance}</span>
+                </p>
+                <h3>{post.title}</h3>
+                <p>{post.excerpt}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="visit" id="visit">
         <div>
           <p className="eyebrow">Come say hello</p>
@@ -105,6 +159,10 @@ export default function Home() {
           </address>
         </div>
         <div className="visit-details">
+          <div>
+            <span>Recovered store hours</span>
+            <p>Tuesday–Friday, 12–6 pm · Saturday by appointment</p>
+          </div>
           <div>
             <span>Phone</span>
             <a href="tel:+12124733550">212-473-3550</a>
@@ -127,6 +185,7 @@ export default function Home() {
         <p>Preserving Ukrainian craft, culture, and memory.</p>
         <a href="tel:+12124733550">212-473-3550</a>
       </footer>
-    </main>
+      </main>
+    </>
   );
 }

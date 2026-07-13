@@ -24,6 +24,8 @@ test("server-renders the recovered Arka catalog", async () => {
   assert.match(html, /Browse\s*(?:<!-- -->)?703(?:<!-- -->)?\s*objects/);
   assert.match(html, /89 East 2nd Street/);
   assert.match(html, /212-473-3550/);
+  assert.match(html, /Legacy archive/);
+  assert.match(html, /Recovered store hours/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
-  assert.doesNotMatch(html, /casino|sportsbook|บาคาร่า|mostbet|kraken onion/i);
+  assert.doesNotMatch(html, /casino|sportsbook|บาคาร่า|mostbet|kraken onion|betandreas/i);
 });
