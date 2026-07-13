@@ -14,6 +14,7 @@ export type Product = {
 
 const products = productsData as Product[];
 const heroProducts = products.filter((product) => product.localImage).slice(0, 3);
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export default function Home() {
   return (
@@ -53,7 +54,7 @@ export default function Home() {
         <div className="hero-gallery" aria-label="Highlights from the Arka collection">
           {heroProducts.map((product, index) => (
             <figure className={`hero-image hero-image-${index + 1}`} key={product.id}>
-              <img src={product.localImage} alt={product.imageAlt} />
+              <img src={`${basePath}${product.localImage}`} alt={product.imageAlt} />
             </figure>
           ))}
           <div className="hero-seal" aria-hidden="true">From Ukraine<br />to New York</div>
@@ -71,7 +72,7 @@ export default function Home() {
             Search by name, material, artist, or description.
           </p>
         </div>
-        <Catalog products={products} />
+        <Catalog products={products} basePath={basePath} />
       </section>
 
       <section className="story" id="story">

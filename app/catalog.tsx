@@ -6,11 +6,14 @@ import { filterProducts } from "./catalog-search.mjs";
 
 const PAGE_SIZE = 24;
 
-export function Catalog({ products }: { products: Product[] }) {
+export function Catalog({ products, basePath = "" }: { products: Product[]; basePath?: string }) {
   const [query, setQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [selected, setSelected] = useState<Product | null>(null);
-  const filtered = useMemo(() => filterProducts(products, query), [products, query]);
+  const filtered = useMemo(
+    () => filterProducts(products, query) as Product[],
+    [products, query],
+  );
   const visible = filtered.slice(0, visibleCount);
 
   useEffect(() => {
@@ -47,7 +50,7 @@ export function Catalog({ products }: { products: Product[] }) {
             <button className="product-card" key={product.id} onClick={() => setSelected(product)}>
               <span className="product-image">
                 {product.localImage ? (
-                  <img src={product.localImage} alt={product.imageAlt} loading="lazy" />
+                  <img src={`${basePath}${product.localImage}`} alt={product.imageAlt} loading="lazy" />
                 ) : (
                   <span className="image-placeholder">Image unavailable</span>
                 )}
@@ -85,7 +88,7 @@ export function Catalog({ products }: { products: Product[] }) {
             <button className="modal-close" aria-label="Close details" onClick={() => setSelected(null)}>×</button>
             <div className="modal-image">
               {selected.localImage ? (
-                <img src={selected.localImage} alt={selected.imageAlt} />
+                <img src={`${basePath}${selected.localImage}`} alt={selected.imageAlt} />
               ) : (
                 <span className="image-placeholder">Image unavailable</span>
               )}
