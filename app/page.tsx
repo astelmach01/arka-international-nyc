@@ -145,10 +145,9 @@ export default function Home() {
               <a href="tel:+12124733550">212-473-3550</a>
             </div>
             <div className="visit-row">
-              <span>Recovered hours</span>
-              <p>Tuesday–Friday, 12–6 pm<br />Saturday by appointment</p>
+              <span>Summer hours</span>
+              <p>Thursday, 12-5 pm<br />Saturday, 12-4 pm</p>
             </div>
-            <p className="hours-warning">These hours came from the former website and may be out of date. Please call first.</p>
             <div className="visit-actions">
               <a className="button button-light" href="tel:+12124733550">Call the store</a>
               <a className="button button-outline-light" href="https://maps.google.com/?q=89+East+2nd+Street+New+York+NY+10009">Open in maps</a>

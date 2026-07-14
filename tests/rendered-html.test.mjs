@@ -29,7 +29,10 @@ test("server-renders the recovered Arka catalog", async () => {
   assert.match(html, /89 East 2nd Street/);
   assert.match(html, /212-473-3550/);
   assert.match(html, /View 9 safe legacy records/);
-  assert.match(html, /Recovered hours/);
+  assert.match(html, /Summer hours/);
+  assert.match(html, /Thursday, 12-5 pm/);
+  assert.match(html, /Saturday, 12-4 pm/);
+  assert.doesNotMatch(html, /These hours came from the former website/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
   assert.doesNotMatch(html, /historical catalog/i);
   assert.doesNotMatch(html, /casino|sportsbook|บาคาร่า|mostbet|kraken onion|betandreas/i);

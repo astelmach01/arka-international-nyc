@@ -2,4 +2,4 @@
 2:I[39756,["/arka-international-nyc/_next/static/chunks/0dbhjjzl8qfwv.js"],"default"]
 3:I[37457,["/arka-international-nyc/_next/static/chunks/0dbhjjzl8qfwv.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"C3CBZh8YoTQYlt0EdVt6X"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"jQobsK58mS2XZu1-2fUjk"}
